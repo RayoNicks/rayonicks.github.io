@@ -168,7 +168,7 @@ char f2(T);
 
 但是在解析`f1<char, char>('a', 'b')`时，可能找不到最佳匹配的函数。
 
-### 16.2.2 重载的函数模板的匹配顺序
+### 16.2.2 重载的函数模板的匹配顺序 {#Partial-Ordering-of-Overloaded-Function-Templates}
 
 假设将[16.2](#Overloading-Function-Templates)中的`details/funcoverload1.cpp`替换为下面的代码：
 
@@ -217,7 +217,9 @@ int main()
 
 >If template argument deduction of the second template against the first synthesized list of argument types succeeds with an exact match, but not vice versa, then the first template is more specialized than the second. Conversely, if template argument deduction of the first template against the second synthesized list of argument types succeeds with an exact match, but not vice versa, then the second template is more specialized than the first. Otherwise (either no deduction succeeds or both succeed), there is no ordering between the two templates.
 
-看一个例子：
+以前一节（[16.2.2](#Partial-Ordering-of-Overloaded-Function-Templates)）中代码为例：解析`f((int*)nullptr)`时，两个函数模板实例化的结果分别为`f<int*>(int*)`和`f<int>(int*)`，形参是一样的，参数列表分别为`(A1)`和`(A2*)`，用`A2*`代换第一个函数模板中的`T`后可以和参数列表2完全匹配，而用任何类型代换第二个函数模板中的`T*`都将得到指针类型，和参数列表1无法匹配，因此`f<T>(T*)`更为特化。
+
+书中还有一个例子：
 
 ```cpp
 template<typename T>
@@ -233,6 +235,8 @@ void example(int* p)
 ```
 
 第一个函数模板中的可变形参和第二个函数模板中的具有默认实参的第三个参数没有使用，所以将被忽略。根据模板参数推导规则，参数列表1为`(A1*, A1 const*)`，参数列表2为`(A2 const*, A2*)`，因此没有办法将参数列表1代换为参数列表2，也没有办法将参数列表2代换为参数列表1，所以两个函数模板之间不存在偏序关系，重载解析过程将会失败。
+
+看完整本书后再回头在看这里，觉得书上解释不是特别恰当。解析`t(p, p)`时，两个函数模板实例化后的结果分别为`t<int>(int*, int const*)`和`t<int>(int const*, int*)`，第一个函数的第一个形参比第二个函数的第一个形参更为匹配，而第二个函数的第二个形参却比第一个函数的第二个形参更为匹配，因此这里存在模糊调用。
 
 ### 16.2.4 函数模板和普通函数之间重载
 

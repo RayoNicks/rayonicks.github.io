@@ -117,7 +117,7 @@ int main()
 
 >A class template usually applies multiple operations on the template arguments it is instantiated for (including construction and destruction). This might lead to the impression that these template arguments have to provide all operations necessary for all member functions of a class template. But this is not the case: Template arguments only have to provide all necessary operations that are needed (instead of that could be needed).
 
-例如为类`Stack<>`定义一个`printOn()`方法，同时实例化模板参数类型为`std::pair<int,int>`的类模板，那么只要不调用`printOn()`函数，就不需要为`std::pair<int,int>`重载`<<`运算符。
+例如为`Stack<>`定义一个`printOn()`方法，同时实例化模板参数类型为`std::pair<int,int>`的类模板，那么只要不调用`printOn()`函数，就不需要为`std::pair<int,int>`重载`<<`运算符。
 
 ```cpp
 template<typename T>
@@ -311,7 +311,7 @@ MyClass<int*,int*> m;   // ERROR: matches MyClass<T,T> and MyClass<T1*,T2*>
 
 ## 2.7 默认模板参数
 
-可以为类模板提供默认的模板参数，例如为类`Stack<>`提供默认的内部容器类型：
+可以为类模板提供默认的模板参数，例如为`Stack<>`提供默认的内部容器类型：
 
 ```cpp
 // basics/stack3.hpp
@@ -394,7 +394,7 @@ Stack<int> intStack2 = intStack1;   // OK in all versions
 Stack intStack3 = intStack1;        // OK since C++17
 ```
 
-假如再为类`Stack<>`提供一个以`T`类型的引用为参数的构造函数`Stack (T const& elem)`，那么便可以使用一个初值来实例化：
+假如再为`Stack<>`提供一个以`T`类型的引用为参数的构造函数`Stack (T const& elem)`，那么便可以使用一个初值来实例化：
 
 ```cpp
 template<typename T>

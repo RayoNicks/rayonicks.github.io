@@ -14,6 +14,7 @@ tags: C++
 ```cpp
 // inherit/empty.cpp
 #include <iostream>
+
 class EmptyClass {
 };
 

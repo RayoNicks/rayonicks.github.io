@@ -15,7 +15,7 @@ tags: C++
 
 如果相同形参类型的推导结果不一致，则推导失败。如果形参是传引用的，则实参被推导为引用类型；如果形参是传值的，则实参会发生类型退化（数组和函数转换为指针类型，`const`和`volatile`被丢弃）。
 
-## 15.2 可推导的形参类型 {#Deduced-Context}
+## 15.2 可推导的上下文 {#Deduced-Context}
 
 除了最简单的形参类型`T`之外，复杂的形参类型也可以进行推导：
 
@@ -43,11 +43,11 @@ void g (int*** ppp)
 }
 ```
 
-复杂类型可以通过递归的方式转换为多个可推导的形参类型（deduced contexts，包括指针、引用、数组、函数、成员指针、模板标识等）从而进行推导。原文：
+复杂类型可以通过递归的方式转换为多个可推导的上下文（deduced contexts，包括指针、引用、数组、函数、成员指针、模板标识等）从而进行推导。原文：
 
 >Complex type declarations are built from more elementary constructs (pointer, reference, array, and function declarators; pointer-to-member declarators; template-ids; and so forth), and the matching process proceeds from the top-level construct and recurses through the composing elements. It is fair to say that most type declaration constructs can be matched in this way, and these are called deduced contexts.
 
-不可推导的形参类型包括：
+不可推导的上下文包括：
 
 - 受限名称，例如不能通过`Q<T>::X`推导`T`
 - 包含非类型模板参数的表达式，例如不能通过`S<I+1>`推导`I`，也不能通过`int(&)[sizeof(S<T>)]`推导`T`
@@ -73,7 +73,7 @@ int main()
 }
 ```
 
-虽然`X<N>::I`不是可推导的形参类型，但是`X<N>::*p`是可推导的形参类型（`N`被推导为`33`），从而`void (X<N>::*p)(typename X<N>::I)`也可以被推导。
+虽然`X<N>::I`不是可推导的上下文，但是`X<N>::*p`是可推导的上下文（`N`被推导为`33`），从而`void (X<N>::*p)(typename X<N>::I)`也可以被推导。
 
 ## 15.3 模板参数推导的特殊情况
 
@@ -467,17 +467,17 @@ int const auto::*pm2 = &X<int>::m;              // ERROR: auto is part of the �
 ```cpp
 void g (std::string&& s)
 {
-// check the type of s:
-std::is_lvalue_reference<decltype(s)>::value;       // false
-std::is_rvalue_reference<decltype(s)>::value;       // true (s as declared)
-std::is_same<decltype(s),std::string&>::value;      // false
-std::is_same<decltype(s),std::string&&>::value;     // true
+    // check the type of s:
+    std::is_lvalue_reference<decltype(s)>::value;       // false
+    std::is_rvalue_reference<decltype(s)>::value;       // true (s as declared)
+    std::is_same<decltype(s),std::string&>::value;      // false
+    std::is_same<decltype(s),std::string&&>::value;     // true
 
-// check the value category of s used as expression:
-std::is_lvalue_reference<decltype((s))>::value;     // true (s is an lvalue)
-std::is_rvalue_reference<decltype((s))>::value;     // false
-std::is_same<decltype((s)),std::string&>::value;    // true (T& signals an lvalue)
-std::is_same<decltype((s)),std::string&&>::value;   // false
+    // check the value category of s used as expression:
+    std::is_lvalue_reference<decltype((s))>::value;     // true (s is an lvalue)
+    std::is_rvalue_reference<decltype((s))>::value;     // false
+    std::is_same<decltype((s)),std::string&>::value;    // true (T& signals an lvalue)
+    std::is_same<decltype((s)),std::string&&>::value;   // false
 }
 ```
 
@@ -731,7 +731,7 @@ class S {
 };
 ```
 
-这将产生类似`template<typename> S(typename ValueArg<T>::Type) -> S<T>`的推导指引，而`ValueArg<T>::Type`并不是可推导的形参类型（参见[15.2](#Deduced-Context)）。
+这将产生类似`template<typename> S(typename ValueArg<T>::Type) -> S<T>`的推导指引，而`ValueArg<T>::Type`并不是可推导的上下文（参见[15.2](#Deduced-Context)）。
 
 ### 15.12.3 其它问题
 

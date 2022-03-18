@@ -196,7 +196,7 @@ int x[] = {0, 8, 15};               // define forward-declared array
 
 ## 5.5 成员函数模板 {#Member-Templates}
 
-成员函数也可以是模板，下面的例子为`Stack<>`类定义了一个拷贝赋值运算符模板：
+成员函数也可以是模板，下面的例子为`Stack<>`定义了一个拷贝赋值运算符模板：
 
 ```cpp
 // basics/stack5decl.hpp
@@ -273,7 +273,7 @@ Stack<T>& Stack<T>::operator= (Stack<T2> const& op2)
 }
 ```
 
-下面的例子将`Stack<>`类中的内置容器类型也变成了一个模板参数：
+下面的例子将`Stack<>`中的内置容器类型也变成了一个模板参数：
 
 ```cpp
 // basics/stack7decl.hpp

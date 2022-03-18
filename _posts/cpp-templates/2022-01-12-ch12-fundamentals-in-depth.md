@@ -527,7 +527,7 @@ class Point : public Mixins...
         // default constructor, visitor function, etc. elided
         Point(Mixins... mixins)         // mixins is a function parameter pack
             : Mixins(mixins)... { }     // initialize each base with the supplied mixin value
-    
+
         struct Color { char red, green, blue; };
         struct Label { std::string name; };
         Point<Color, Label> p({0x7F, 0, 0x7F}, {"center"});
@@ -640,7 +640,7 @@ class Mixer {
 
 对于没有`<>`的友元函数声明：
 
-- 如果没有被作用域运算符`::`修饰，就当做友元函数声明
+- 如果没有被作用域运算符`::`修饰，就当做友元函数声明，也可以进行定义
 - 如果被作用域运算符`::`修饰，则根据匹配规则匹配友元函数
 
 具体见下例：
@@ -665,7 +665,7 @@ class Comrades {
 ```cpp
 template<typename T>
 class Node {
-Node<T>* allocate();
+    Node<T>* allocate();
     // ...
 };
 

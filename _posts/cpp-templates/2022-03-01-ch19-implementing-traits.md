@@ -9,7 +9,7 @@ tags: C++
 
 ## 19.1 序列累加的例子
 
-### 19.1.1 提取固定类型特征
+### 19.1.1 固定类型特征
 
 假设有一个对容器中元素累加的模板：
 
@@ -140,7 +140,7 @@ the average value of the integer values is 3
 the average value of the characters in "templates" is 108
 ```
 
-### 19.1.2 提取值特征
+### 19.1.2 值特征
 
 类型特征的解决办法很好的解决了返回类型的问题，但是却不能保证初值`total`是一个合理值，为此可以再为类型`T`提供值特征：
 
@@ -255,7 +255,7 @@ struct AccumulationTraits<BigInt> {
 };
 ```
 
-不过在C++17中，对于自定义类型还可以写为内联的形式：
+不过在C++17中，对于自定义类型还可以写为`inline`的形式：
 
 ```cpp
 template<>
@@ -1913,7 +1913,7 @@ int main()
 }
 ```
 
-但是不便之处在于编译器无法进行类型推导了，这是因为`RParam<T1>::Type`不是可推导的形参类型，但是可以通过包装器（wrapper）包装一下：
+但是不便之处在于编译器无法进行类型推导了，这是因为`RParam<T1>::Type`不是可推导的上下文，但是可以通过包装器（wrapper）包装一下：
 
 ```cpp
 // traits/rparam2.cpp
@@ -1922,8 +1922,7 @@ int main()
 
 // function that allows parameter passing by value or by reference
 template<typename T1, typename T2>
-void foo_core (typename RParam<T1>::Type p1,
-typename RParam<T2>::Type p2)
+void foo_core (typename RParam<T1>::Type p1, typename RParam<T2>::Type p2)
 {
     // ...
 }

@@ -50,7 +50,7 @@ void advanceIter(RandomAccessIterator& x, Distance n) {
 
 ## 20.2 通过标签实现函数模板的分发 {#Tag-Dispatching}
 
-引入迭代器分类后就可以正确解析了：
+引入迭代器标签后就可以正确解析了：
 
 ```cpp
 template<typename Iterator, typename Distance>
@@ -88,7 +88,7 @@ namespace std {
 
 ## 20.3 启用和禁用函数模板
 
-通过`std::enable_if`可以实现启用和禁用函数模板，原理依然是SFINAE规则：
+通过`EnableIf<>`可以实现启用和禁用函数模板，原理依然是SFINAE规则：
 
 ```cpp
 // typeoverload/enableif.hpp
@@ -183,7 +183,7 @@ advanceIter(Iterator& x, Distance n) {
 
 ### 20.3.2 将EnableIf作为默认模板参数 {#Where-Does-the-EnableIf-Go}
 
-`EnableIf`一般写在函数模板的返回类型处，对于没有返回类型的函数，`EnableIf`可以作为默认的模板实参：
+`EnableIf<>`一般写在函数模板的返回类型处，对于没有返回类型的函数，`EnableIf<>`可以作为默认的模板实参：
 
 ```cpp
 // typeoverload/container1.hpp
@@ -421,7 +421,7 @@ template<typename T, typename... Types>
 using BestMatchInSet = typename BestMatchInSetT<T, Types...>::Type;
 ```
 
-`MatchOverloads<>`通过递归的方式重载了多个`match()`函数，每个函数接受不同类型的参数。当在`decltype`对`match()`调用进行推导的过程中，就可以实现最佳匹配。个人认为实例化的过程应该为：
+`MatchOverloads<>`通过递归的方式重载了多个`match()`，每个函数接受不同类型的参数。当在`decltype`对`match()`调用进行推导的过程中，就可以实现最佳匹配。个人认为实例化的过程应该为：
 
 1. 实例化`BestMatchInSet<>`触发实例化`BestMatchInSetT<>`
 2. 实例化`BestMatchInSetT<>`时会检查`Type`的定义，这会触发`decltype`中的推导，从而触发实例化`MatchOverloads<Types...>`

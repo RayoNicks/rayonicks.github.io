@@ -24,3 +24,7 @@ Please noting the most important things listed here:
 
 1. the name of your blog file must be formatted with `YYYY-MM-DD-FILE_NAME.md`
 2. set the `layout`, `title`, `categories` and `tags` in the very begin of your blog file so it can be classified correctly
+
+# Deploy jekyll environment on other computers
+
+If you just want to write your blog on another computer with the same gems (ruby modules), after installing ruby-full, you can simply type `gem install bundler` and install bundler, then change to your blog repository and execute `bundle install`, it will automatically install all the gems in Gemfile.lock.

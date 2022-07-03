@@ -27,4 +27,4 @@ Please noting the most important things listed here:
 
 # Deploy jekyll environment on other computers
 
-If you just want to write your blog on another computer with the same gems (ruby modules), after installing ruby-full, you can simply type `gem install bundler` and install bundler, then change to your blog repository and execute `bundle install`, it will automatically install all the gems in Gemfile.lock.
+If you just want to write your blog on another computer with the same gems (ruby modules), after installing ruby-full and build-essential, you can simply type `gem install bundler` and install bundler, then change to your blog repository and execute `bundle install`, it will automatically install all the gems in Gemfile.lock.
